@@ -1,0 +1,20 @@
+#
+# [ Database Configuration Section ]
+#
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres:7432/mydb
+    username: postgres
+    password: mypass
+    platform: POSTGRESQL
+#  jpa:
+#    database-platform: org.hibernate.dialect.PostgreSQLDialect
+#    show-sql: true
+#    hibernate:
+#      ddl-auto: none
+#      naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+#    properties:
+#      eclipselink.ddl-generation: none
+  main:
+    web-environment: false

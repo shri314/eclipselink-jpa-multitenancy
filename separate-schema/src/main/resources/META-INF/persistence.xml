@@ -9,8 +9,7 @@
 		<exclude-unlisted-classes>true</exclude-unlisted-classes>
 		<properties>
 			<!-- EclipseLink properties -->
-			<property name="eclipselink.logging.level" value="fine" />
-			<property name="eclipselink.tenant-id" value="default_tenant" />
+			<property name="eclipselink.tenant-id" value="junk_tenant_inside_pu_file" />
 		</properties>
 	</persistence-unit>
 </persistence> 

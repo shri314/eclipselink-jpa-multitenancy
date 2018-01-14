@@ -63,14 +63,17 @@ public class SeparateSchemaApp implements CommandLineRunner {
             {
                 // set tenant in EntityManagerFactory Level
                 Properties properties = getPuProperties();
-                properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
-                properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-JCConf");
+                // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
+                // properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-JCConf");
                 EntityManagerFactory factory = Persistence.createEntityManagerFactory(PU, properties);
                 EntityManager em = factory.createEntityManager();
 
+                em.getTransaction().begin();
+                em.setProperty(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
                 Product p = em.find(Product.class, 1000);
                 System.out.println(p);
                 System.out.println(p.getName().contains("JCConf") ? "PASS" : "FAIL");
+                em.getTransaction().commit();
 
                 em.close();
             }
@@ -78,14 +81,17 @@ public class SeparateSchemaApp implements CommandLineRunner {
             {
                 // set tenant in EntityManagerFactory Level
                 Properties properties = getPuProperties();
-                properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
-                properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-default_tenant");
+                // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
+                // properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-default_tenant");
                 EntityManagerFactory factory = Persistence.createEntityManagerFactory(PU, properties);
                 EntityManager em = factory.createEntityManager();
 
+                em.getTransaction().begin();
+                em.setProperty(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
                 Product p = em.find(Product.class, 1000);
                 System.out.println(p);
                 System.out.println(p.getName().contains("default_tenant") ? "PASS" : "FAIL");
+                em.getTransaction().commit();
 
                 em.close();
             }

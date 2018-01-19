@@ -1,7 +1,9 @@
 package org.phstudy.model;
 
 import org.eclipse.persistence.annotations.Multitenant;
+import org.eclipse.persistence.annotations.MultitenantType;
 import org.eclipse.persistence.annotations.TenantTableDiscriminator;
+import org.eclipse.persistence.annotations.TenantTableDiscriminatorType;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 
 import javax.persistence.Entity;
@@ -9,15 +11,12 @@ import javax.persistence.Id;
 
 import java.util.Objects;
 
-import static org.eclipse.persistence.annotations.MultitenantType.TABLE_PER_TENANT;
-import static org.eclipse.persistence.annotations.TenantTableDiscriminatorType.SCHEMA;
-
 /**
  * Created by study on 11/14/14.
  */
 @Entity
-@Multitenant(value = TABLE_PER_TENANT)
-@TenantTableDiscriminator(type = SCHEMA, contextProperty = PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT)
+// @Multitenant(value = MultitenantType.TABLE_PER_TENANT)
+@TenantTableDiscriminator(type = TenantTableDiscriminatorType.SCHEMA, contextProperty = PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT)
 public class Product {
     @Id
     private Integer id;

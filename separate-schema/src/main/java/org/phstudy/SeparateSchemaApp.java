@@ -2,6 +2,8 @@ package org.phstudy;
 
 import org.eclipse.persistence.config.BatchWriting;
 import org.eclipse.persistence.config.PersistenceUnitProperties;
+import org.eclipse.persistence.descriptors.SchemaPerMultitenantPolicy;
+import org.eclipse.persistence.descriptors.TablePerMultitenantPolicy;
 import org.phstudy.model.Product;
 import org.phstudy.model.ProductServiceBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,9 +51,11 @@ public class SeparateSchemaApp implements CommandLineRunner {
     private final Map<String, ?> initJpaProperties() {
         final Map<String, Object> ret = new HashMap<>();
         // Add any JpaProperty you are interested in and is supported by your Database and JPA implementation
+        ret.put(PersistenceUnitProperties.DDL_GENERATION, "false");
         ret.put(PersistenceUnitProperties.BATCH_WRITING, BatchWriting.JDBC);
         ret.put(PersistenceUnitProperties.WEAVING, "false");
-        ret.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
+        ret.put(PersistenceUnitProperties.MULTITENANT_STRATEGY, TablePerMultitenantPolicy.class.getName());
+        // ret.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
         return ret;
     }
 

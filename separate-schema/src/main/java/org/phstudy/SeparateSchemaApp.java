@@ -59,13 +59,13 @@ public class SeparateSchemaApp implements CommandLineRunner {
             Separate Schema do not support DDL generation, and it must be created manually.
             The schema definition is in resources/sql/init.sql file.
          */
+            Properties properties = getPuProperties();
+            // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
+            // properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-JCConf");
+            EntityManagerFactory factory = Persistence.createEntityManagerFactory(PU, properties);
 
             {
                 // set tenant in EntityManagerFactory Level
-                Properties properties = getPuProperties();
-                // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
-                // properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-JCConf");
-                EntityManagerFactory factory = Persistence.createEntityManagerFactory(PU, properties);
                 EntityManager em = factory.createEntityManager();
 
                 em.getTransaction().begin();
@@ -80,10 +80,6 @@ public class SeparateSchemaApp implements CommandLineRunner {
 
             {
                 // set tenant in EntityManagerFactory Level
-                Properties properties = getPuProperties();
-                // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "default_tenant");
-                // properties.put(PersistenceUnitProperties.SESSION_NAME, "multi-tenant-default_tenant");
-                EntityManagerFactory factory = Persistence.createEntityManagerFactory(PU, properties);
                 EntityManager em = factory.createEntityManager();
 
                 em.getTransaction().begin();
@@ -109,8 +105,8 @@ public class SeparateSchemaApp implements CommandLineRunner {
         properties.put("javax.persistence.jdbc.password", "mypass");
         properties.put("javax.persistence.database-product-name", "POSTGRESQL");
         properties.put("javax.persistence.sql-load-script-source", "sql/init.sql");
-        // properties.put(PersistenceUnitProperties.LOGGING_LEVEL, SessionLog.FINE_LABEL);
 
+        // properties.put(PersistenceUnitProperties.MULTITENANT_PROPERTY_DEFAULT, "JCConf");
         return properties;
     }
 }
